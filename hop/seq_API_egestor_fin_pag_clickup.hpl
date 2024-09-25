@@ -1,0 +1,1128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <name>seq_API_egestor_fin_pag_clickup</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <parameters>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2024/06/03 07:54:36.742</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2024/06/03 07:54:36.742</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <order>
+    <hop>
+      <from>Value mapper Canal</from>
+      <to>Value mapper UF</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper EMPRESA</from>
+      <to>Value mapper marca</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper dre</from>
+      <to>Value mapper EMPRESA</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper marca</from>
+      <to>Value mapper Canal</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Calculator</from>
+      <to>Value mapper dre</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Calculator</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input clickup transformada base</from>
+      <to>Value mapper empresa_solicitacao</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper empresa_solicitacao</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper UF</from>
+      <to>Departamento</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Departamento</from>
+      <to>JavaScript</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>JavaScript</from>
+      <to>Parquet File Output Pagamentos Clickup</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Calculator</name>
+    <type>Calculator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <calculation>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>empresa_solicitacao</field_a>
+      <field_name>DRE</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>String</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>empresa_solicitacao</field_a>
+      <field_name>EMPRESA</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>String</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>empresa_solicitacao</field_a>
+      <field_name>MARCA</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>String</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>empresa_solicitacao</field_a>
+      <field_name>CANAL</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>String</value_type>
+    </calculation>
+    <calculation>
+      <calc_type>COPY_FIELD</calc_type>
+      <field_a>empresa_solicitacao</field_a>
+      <field_name>UF</field_name>
+      <remove>N</remove>
+      <value_length>-1</value_length>
+      <value_precision>-1</value_precision>
+      <value_type>String</value_type>
+    </calculation>
+    <failIfNoFile>Y</failIfNoFile>
+    <attributes/>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Departamento</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>assunto</field_to_use>
+    <fields>
+      <field>
+        <target_value>CONFERIR</target_value>
+      </field>
+    </fields>
+    <target_field>Departamento</target_field>
+    <attributes/>
+    <GUI>
+      <xloc>1072</xloc>
+      <yloc>544</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Parquet File Output Pagamentos Clickup</name>
+    <type>ParquetFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compression_codec>UNCOMPRESSED</compression_codec>
+    <data_page_size>8192</data_page_size>
+    <dictionary_page_size>1048576</dictionary_page_size>
+    <fields>
+      <field>
+        <source_field>id</source_field>
+        <target_field>id</target_field>
+      </field>
+      <field>
+        <source_field>url</source_field>
+        <target_field>url</target_field>
+      </field>
+      <field>
+        <source_field>nome</source_field>
+        <target_field>nome</target_field>
+      </field>
+      <field>
+        <source_field>status</source_field>
+        <target_field>status</target_field>
+      </field>
+      <field>
+        <source_field>data_criacao</source_field>
+        <target_field>data_criacao</target_field>
+      </field>
+      <field>
+        <source_field>data_atualizacao</source_field>
+        <target_field>data_atualizacao</target_field>
+      </field>
+      <field>
+        <source_field>data_finalizacao</source_field>
+        <target_field>data_finalizacao</target_field>
+      </field>
+      <field>
+        <source_field>titulo_solicitacao</source_field>
+        <target_field>titulo_solicitacao</target_field>
+      </field>
+      <field>
+        <source_field>area_solicitacao</source_field>
+        <target_field>area_solicitacao</target_field>
+      </field>
+      <field>
+        <source_field>tipo_evento</source_field>
+        <target_field>tipo_evento</target_field>
+      </field>
+      <field>
+        <source_field>cliente_fornececor</source_field>
+        <target_field>cliente_fornececor</target_field>
+      </field>
+      <field>
+        <source_field>assunto</source_field>
+        <target_field>assunto</target_field>
+      </field>
+      <field>
+        <source_field>despesa_entre</source_field>
+        <target_field>despesa_entre</target_field>
+      </field>
+      <field>
+        <source_field>valor</source_field>
+        <target_field>valor</target_field>
+      </field>
+      <field>
+        <source_field>conferencia_valor</source_field>
+        <target_field>conferencia_valor</target_field>
+      </field>
+      <field>
+        <source_field>centro_custo_marca</source_field>
+        <target_field>centro_custo_marca</target_field>
+      </field>
+      <field>
+        <source_field>empresa_solicitacao</source_field>
+        <target_field>empresa_solicitacao</target_field>
+      </field>
+      <field>
+        <source_field>departamento_clickup</source_field>
+        <target_field>departamento_clickup</target_field>
+      </field>
+      <field>
+        <source_field>DRE</source_field>
+        <target_field>DRE</target_field>
+      </field>
+      <field>
+        <source_field>EMPRESA</source_field>
+        <target_field>EMPRESA</target_field>
+      </field>
+      <field>
+        <source_field>MARCA</source_field>
+        <target_field>MARCA</target_field>
+      </field>
+      <field>
+        <source_field>CANAL</source_field>
+        <target_field>CANAL</target_field>
+      </field>
+      <field>
+        <source_field>UF</source_field>
+        <target_field>UF</target_field>
+      </field>
+      <field>
+        <source_field>Departamento</source_field>
+        <target_field>Departamento</target_field>
+      </field>
+    </fields>
+    <filename_base>s3:\databeautykamico\bronze\egestor\parket\financeiro\Pagamentos_clickup_pag\pagamentos_clickup</filename_base>
+    <filename_create_parent_folders>Y</filename_create_parent_folders>
+    <filename_datetime_format>yyyyMMdd-HHmmss</filename_datetime_format>
+    <filename_ext>parquet</filename_ext>
+    <filename_include_copy>N</filename_include_copy>
+    <filename_include_date>N</filename_include_date>
+    <filename_include_datetime>N</filename_include_datetime>
+    <filename_include_split>Y</filename_include_split>
+    <filename_include_time>N</filename_include_time>
+    <filename_split_size>1000000</filename_split_size>
+    <row_group_size>268435456</row_group_size>
+    <version>2.0</version>
+    <attributes/>
+    <GUI>
+      <xloc>1504</xloc>
+      <yloc>544</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>id</name>
+        <rename>id</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>url</name>
+        <rename>url</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>nome</name>
+        <rename>nome</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>status</name>
+        <rename>status</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>data_criacao</name>
+        <rename>data_criacao</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>data_atualizacao</name>
+        <rename>data_atualizacao</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>data_finalizacao</name>
+        <rename>data_finalizacao</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>titulo_solicitacao</name>
+        <rename>titulo_solicitacao</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>tipo_evento</name>
+        <rename>tipo_evento</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>cliente_fornececor</name>
+        <rename>cliente_fornececor</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>assunto</name>
+        <rename>assunto</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>despesa_entre</name>
+        <rename>despesa_entre</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>valor</name>
+        <rename>valor</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>conferencia_valor</name>
+        <rename>conferencia_valor</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>centro_custo_marca</name>
+        <rename>centro_custo_marca</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>empresa_solicitacao</name>
+        <rename>empresa_solicitacao</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>departamento_clickup</name>
+        <rename>departamento_clickup</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Table input clickup transformada base</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Athena_AWS_Kami</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>select 
+id,
+url,
+nome,
+status,
+date_created data_criacao,
+date_updated data_atualizacao,
+date_done data_finalizacao,
+titulo_solicitacao,
+area_solicitacao,
+CASE    WHEN tipo_evento = '0' Then 'TRUSS EXPERIENCE'
+        WHEN tipo_evento = '1' Then 'BRAÉ EXPERIENCE'
+        WHEN tipo_evento = '2' Then 'K.PRO EXPERIENCE'
+        WHEN tipo_evento = '3' Then 'BEEXP'
+        WHEN tipo_evento = '4' Then 'N/A'
+        WHEN tipo_evento = '5' Then '17046'
+END as tipo_evento,    
+nome_cliente_fornecedor_free cliente_fornececor,
+assunto,
+valor_total_despesa despesa_entre,
+round(cast(valor_a_ser_pago2 as double),2) as valor,
+case when valor_total_despesa = 'De 1.000 a 10.000 (dez mil reais)' and cast(valor_a_ser_pago2 as double) between 1000 and 10000 Then 'Valor Conferido'
+    when valor_total_despesa = 'Até 1.000 (mil reais)' and cast(valor_a_ser_pago2 as double) &lt;= 1000 Then 'Valor Conferido'
+    when valor_total_despesa = 'Acima de 10.000 (dez mil reais)' and cast(valor_a_ser_pago2 as double) > 10000 and cast(valor_a_ser_pago2 as double) &lt; 1000000 Then 'Valor Conferido'
+    when valor_total_despesa is not null Then 'Erro Valor'
+Else '-' end conferencia_valor,
+CASE    WHEN centro_custo_marca = '0' Then 'BRAÉ'
+        WHEN centro_custo_marca = '1' Then 'K''PRO'
+        WHEN centro_custo_marca = '2' Then 'LOF'
+        WHEN centro_custo_marca = '3' Then 'MOROCCANOIL'
+        WHEN centro_custo_marca = '4' Then 'TRUSS'
+        WHEN centro_custo_marca = '5' Then 'ISSUE'
+        WHEN centro_custo_marca = '6' Then 'JOICO'
+        WHEN centro_custo_marca = '7' Then 'SENSCIENSE'
+        WHEN centro_custo_marca = '8' Then 'DEVA'
+        WHEN centro_custo_marca = '9' Then 'BENVOLEO'
+        WHEN centro_custo_marca = '10' Then 'BR &amp; CO'
+        WHEN centro_custo_marca = '10' Then 'CADIVEU'        
+        WHEN centro_custo_marca = '10' Then 'FELPS'   
+        WHEN centro_custo_marca = '10' Then 'KAMI CO. GRUPO uso somente para operações internas.'         
+END as centro_custo_marca,
+CASE    WHEN empresa_solicitacao_1 = 0 Then 'KAMI CO.'
+        WHEN empresa_solicitacao_1 = 1 Then 'SALÃO'
+        WHEN empresa_solicitacao_1 = 2 Then 'MOVEMENT - SP'
+        WHEN empresa_solicitacao_1 = 3 Then 'MOVEMENT - MT'
+        WHEN empresa_solicitacao_1 = 4 Then 'MOVEMENT - RJ'
+        WHEN empresa_solicitacao_1 = 5 Then 'MOVEMENT - RS'
+        WHEN empresa_solicitacao_1 = 6 Then 'NEW HAUSS'
+        WHEN empresa_solicitacao_1 = 7 Then 'THE BEST '
+        WHEN empresa_solicitacao_1 = 8 Then 'HAIR PRO'
+        WHEN empresa_solicitacao_1 = 9 Then '3MKO - SP'     
+        WHEN empresa_solicitacao_1 = 10 Then '3MKO - RJ'     
+        WHEN empresa_solicitacao_1 = 11 Then '3MKO - ES'     
+        WHEN empresa_solicitacao_1 = 12 Then '3MKO - PR'     
+        WHEN empresa_solicitacao_1 = 13 Then 'LOJA'     
+        WHEN empresa_solicitacao_1 = 14 Then 'ONDINA'     
+        WHEN empresa_solicitacao_1 = 15 Then 'SUPRIR'     
+        WHEN empresa_solicitacao_1 = 16 Then 'LOF'     
+        WHEN empresa_solicitacao_1 = 17 Then 'CHILE'     
+        WHEN empresa_solicitacao_1 = 18 Then 'PORTUGAL'
+        WHEN empresa_solicitacao_1 = 19 Then '3MKO MATRIZ - GO'     
+        WHEN empresa_solicitacao_1 = 20 Then 'SENS'     
+        WHEN empresa_solicitacao_1 = 21 Then '3MKO RS'       
+        WHEN empresa_solicitacao_1 = 22 Then '3MKO BA'     
+end as empresa_solicitacao,
+CASE    WHEN departamento = '0' Then 'Back Office'
+        WHEN departamento = '1' Then 'Eventos'
+        WHEN departamento = '2' Then 'Financeiro'
+        WHEN departamento = '3' Then 'Logistica'
+        WHEN departamento = '4' Then 'Trade'
+        WHEN departamento = '5' Then 'Novos Negócios'
+        WHEN departamento = '6' Then 'Procurement'
+        WHEN departamento = '7' Then 'Ondina'
+        WHEN departamento = '8' Then 'RH'
+        WHEN departamento = '9' Then 'TI'
+        WHEN departamento = '10' Then 'Educação'
+        WHEN departamento = '11' Then 'Store'
+        WHEN departamento = '12' Then 'Beautyline'
+        WHEN departamento = '13' Then 'Marketing'
+        WHEN departamento = '14' Then 'Comercial'
+end as departamento_clickup
+from  tbl_financeiro_pagamento_clickup_transf</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>48</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper Canal</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>CANAL</field_to_use>
+    <fields>
+      <field>
+        <source_value>3MKO - SP</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - RJ</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - ES</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - PR</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO KAMI</source_value>
+        <target_value>ECOMMERCE</target_value>
+      </field>
+      <field>
+        <source_value>HAIR PRO - e-commerce</source_value>
+        <target_value>LOJA</target_value>
+      </field>
+      <field>
+        <source_value>LOJA 2 - BEAUTYLINE LEOPOLDINA</source_value>
+        <target_value>LOJA</target_value>
+      </field>
+      <field>
+        <source_value>KAMI CO.</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - MT</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - SP</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>NEW HAUSS</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <attributes/>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper EMPRESA</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>EMPRESA</field_to_use>
+    <fields>
+      <field>
+        <source_value>3MKO - SP</source_value>
+        <target_value>3MKO SP</target_value>
+      </field>
+      <field>
+        <source_value>3MKO FILIAL 03 RJ</source_value>
+        <target_value>3MKO RJ</target_value>
+      </field>
+      <field>
+        <source_value>3MKO FILIAL 04 ES</source_value>
+        <target_value>3MKO ES</target_value>
+      </field>
+      <field>
+        <source_value>3MKO FILIAL 05 PR</source_value>
+        <target_value>3MKO PR</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO KAMI</source_value>
+        <target_value>GIANT</target_value>
+      </field>
+      <field>
+        <source_value>HAIR PRO - e-commerce</source_value>
+        <target_value>INIT1 LEOPOLDINA</target_value>
+      </field>
+      <field>
+        <source_value>LOJA 2 - BEAUTYLINE LEOPOLDINA</source_value>
+        <target_value>INIT1 SOROCABA</target_value>
+      </field>
+      <field>
+        <source_value>KAMI CO.</source_value>
+        <target_value>KAMICO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - MT</source_value>
+        <target_value>MOVEMENT MT</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>MOVEMENT RJ</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - SP</source_value>
+        <target_value>MOVEMENT SP</target_value>
+      </field>
+      <field>
+        <source_value>NEW HAUSS</source_value>
+        <target_value>NEW HAUSS</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <attributes/>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>208</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper UF</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>UF</field_to_use>
+    <fields>
+      <field>
+        <source_value>3MKO - SP</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - RJ</source_value>
+        <target_value>RJ</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - ES</source_value>
+        <target_value>ES</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - PR</source_value>
+        <target_value>PR</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO KAMI</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>HAIR PRO - e-commerce</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>LOJA 2 - BEAUTYLINE LEOPOLDINA</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>KAMI CO.</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - MT</source_value>
+        <target_value>MT</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>RJ</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - SP</source_value>
+        <target_value>SP</target_value>
+      </field>
+      <field>
+        <source_value>NEW HAUSS</source_value>
+        <target_value>RS</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <attributes/>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>544</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper dre</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>DRE</field_to_use>
+    <fields>
+      <field>
+        <source_value>3MKO - SP</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - RJ</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - ES</source_value>
+        <target_value>NÃO</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - PR</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO KAMI</source_value>
+        <target_value>NÃO</target_value>
+      </field>
+      <field>
+        <source_value>HAIR PRO - e-commerce</source_value>
+        <target_value>NÃO</target_value>
+      </field>
+      <field>
+        <source_value>LOJA 2 - BEAUTYLINE LEOPOLDINA</source_value>
+        <target_value>NÃO</target_value>
+      </field>
+      <field>
+        <source_value>KAMI CO.</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - MT</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - SP</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+      <field>
+        <source_value>NEW HAUSS</source_value>
+        <target_value>DISTRIBUIÇÃO</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <attributes/>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>128</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper empresa_solicitacao</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>empresa_solicitacao</field_to_use>
+    <fields>
+      <field>
+        <target_value>MOVEMENT - SP</target_value>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>48</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper marca</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>MARCA</field_to_use>
+    <fields>
+      <field>
+        <source_value>3MKO SP</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - RJ</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - ES</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>3MKO - PR</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO KAMI</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>HAIR PRO - e-commerce</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>LOJA 2 - BEAUTYLINE LEOPOLDINA</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>KAMI CO.</source_value>
+        <target_value>MULTIMARCAS</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - MT</source_value>
+        <target_value>TRUSS</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>TRUSS</target_value>
+      </field>
+      <field>
+        <source_value>MOVEMENT - RJ</source_value>
+        <target_value>TRUSS</target_value>
+      </field>
+      <field>
+        <source_value>NEW HAUSS</source_value>
+        <target_value>TRUSS</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <attributes/>
+    <GUI>
+      <xloc>832</xloc>
+      <yloc>336</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>JavaScript</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var strDepartamento = departamento_clickup;
+var strTipoevento = tipo_evento;
+var strAreasolicitacao = area_solicitacao;
+var strSaida ;
+
+if (strDepartamento != null &amp;&amp; strDepartamento != '') {
+    strSaida = strDepartamento;
+} else {
+    if (strTipoevento == 'BEEXP') {
+        strSaida = 'Eventos';
+    } else if (strAreasolicitacao != null &amp;&amp; strAreasolicitacao != '') {
+        strSaida = strAreasolicitacao;
+    } else { strSaida = 'Validar com taskcontent' }
+}
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>
+      <field>
+        <name>strSaida</name>
+        <rename>Departamento_</rename>
+        <type>String</type>
+        <length>-1</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1264</xloc>
+      <yloc>544</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>

@@ -1,0 +1,1590 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <name>Seq_store_silver_eyemobile</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <parameters>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2024/06/25 17:45:38.467</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2024/06/25 17:45:38.467</modified_date>
+  </info>
+  <notepads>
+  </notepads>
+  <order>
+    <hop>
+      <from>Table input store</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>Value mapper de_para_vendedor</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Value mapper de_para_vendedor</from>
+      <to>Parquet File Output Salao_Store</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>API_eyemobile_paginas_sp</from>
+      <to>Seq_API_eyemobile_suprirSP</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Get system info Mes_Atual</from>
+      <to>Select values Mês Atual</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input Valida Carga SP</from>
+      <to>Switch / case</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case</from>
+      <to>API_eyemobile_paginas_sp</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input Valida Carga RJ</from>
+      <to>Switch / case RJ</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Table input Valida Carga PR</from>
+      <to>Switch / case PR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case</from>
+      <to>Table input Valida Carga PR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case PR</from>
+      <to>API_eyemobile_paginas_pr</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Seq_API_eyemobile_suprirSP</from>
+      <to>Table input Valida Carga PR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case PR</from>
+      <to>Table input Valida Carga RJ</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case RJ</from>
+      <to>Table input store</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case RJ</from>
+      <to>API_eyemobile_paginas_rj</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>API_eyemobile_paginas_rj</from>
+      <to>seq_API_eyemobile_transactions</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>API_eyemobile_paginas_pr</from>
+      <to>Seq_API_eyemobile_suprirPR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Seq_API_eyemobile_suprirPR</from>
+      <to>Table input Valida Carga RJ</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>seq_API_eyemobile_transactions</from>
+      <to>Table input store</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values Mês Atual</from>
+      <to>Table input Valida Carga SP</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values Mês Atual</from>
+      <to>Table input Valida Carga PR</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values Mês Atual</from>
+      <to>Table input Valida Carga RJ</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>API_eyemobile_paginas_pr</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/API_eyemobile_paginas_pr.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform>Seq_API_eyemobile_suprirPR</execution_result_target_transform>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>API_eyemobile_paginas_rj</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/API_eyemobile_paginas_rj.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform>seq_API_eyemobile_transactions</execution_result_target_transform>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>1600</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>API_eyemobile_paginas_sp</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/API_eyemobile_paginas_sp.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform>Seq_API_eyemobile_suprirSP</execution_result_target_transform>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Get system info Mes_Atual</name>
+    <type>SystemInfo</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>Dia_Inicio</name>
+        <type>this month start</type>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>96</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Parquet File Output Salao_Store</name>
+    <type>ParquetFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compression_codec>UNCOMPRESSED</compression_codec>
+    <data_page_size>8192</data_page_size>
+    <dictionary_page_size>1048576</dictionary_page_size>
+    <fields>
+      <field>
+        <source_field>cod_pedido</source_field>
+        <target_field>cod_pedido</target_field>
+      </field>
+      <field>
+        <source_field>mes_ref</source_field>
+        <target_field>mes_ref</target_field>
+      </field>
+      <field>
+        <source_field>empresa</source_field>
+        <target_field>empresa</target_field>
+      </field>
+      <field>
+        <source_field>event_name</source_field>
+        <target_field>event_name</target_field>
+      </field>
+      <field>
+        <source_field>total</source_field>
+        <target_field>total</target_field>
+      </field>
+      <field>
+        <source_field>subtotal</source_field>
+        <target_field>subtotal</target_field>
+      </field>
+      <field>
+        <source_field>product_name</source_field>
+        <target_field>product_name</target_field>
+      </field>
+      <field>
+        <source_field>product_id</source_field>
+        <target_field>product_id</target_field>
+      </field>
+      <field>
+        <source_field>ean</source_field>
+        <target_field>ean</target_field>
+      </field>
+      <field>
+        <source_field>sku</source_field>
+        <target_field>sku</target_field>
+      </field>
+      <field>
+        <source_field>price</source_field>
+        <target_field>price</target_field>
+      </field>
+      <field>
+        <source_field>discount</source_field>
+        <target_field>discount</target_field>
+      </field>
+      <field>
+        <source_field>quantity</source_field>
+        <target_field>quantity</target_field>
+      </field>
+      <field>
+        <source_field>origem</source_field>
+        <target_field>origem</target_field>
+      </field>
+      <field>
+        <source_field>vendedor</source_field>
+        <target_field>vendedor</target_field>
+      </field>
+    </fields>
+    <filename_base>s3://databeautykamico/silver/parquet/varejo/store/store_eyemobile</filename_base>
+    <filename_create_parent_folders>Y</filename_create_parent_folders>
+    <filename_datetime_format>yyyyMMdd-HHmmss</filename_datetime_format>
+    <filename_ext>parquet</filename_ext>
+    <filename_include_copy>Y</filename_include_copy>
+    <filename_include_date>N</filename_include_date>
+    <filename_include_datetime>N</filename_include_datetime>
+    <filename_include_split>Y</filename_include_split>
+    <filename_include_time>N</filename_include_time>
+    <filename_split_size>1000000</filename_split_size>
+    <row_group_size>268435456</row_group_size>
+    <version>2.0</version>
+    <attributes/>
+    <GUI>
+      <xloc>2400</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>cod_pedido</name>
+        <rename>cod_pedido</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>mes_ref</name>
+        <rename>mes_ref</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>empresa</name>
+        <rename>empresa</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>id_pedido</name>
+        <rename>id_pedido</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>event_name</name>
+        <rename>event_name</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>total</name>
+        <rename>total</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>subtotal</name>
+        <rename>subtotal</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>product_name</name>
+        <rename>product_name</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>product_id</name>
+        <rename>product_id</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>ean</name>
+        <rename>ean</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>sku</name>
+        <rename>sku</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>price</name>
+        <rename>price</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>discount</name>
+        <rename>discount</rename>
+        <type>Number</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>quantity</name>
+        <rename>quantity</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2128</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values Mês Atual</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>Dia_Inicio</name>
+        <rename>Dia_Inicio</rename>
+        <type>Date</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask>yyyy-MM-dd</conversion_mask>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>288</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Seq_API_eyemobile_suprirPR</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/Seq_API_eyemobile_suprirPR.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>1360</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Seq_API_eyemobile_suprirSP</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/Seq_API_eyemobile_suprirSP.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>432</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Switch / case</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cases>
+      <case>
+        <target_transform>API_eyemobile_paginas_sp</target_transform>
+        <value>0</value>
+      </case>
+    </cases>
+    <default_target_transform>Table input Valida Carga PR</default_target_transform>
+    <fieldname>qtd_registros</fieldname>
+    <use_contains>N</use_contains>
+    <attributes/>
+    <GUI>
+      <xloc>656</xloc>
+      <yloc>320</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Switch / case PR</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cases>
+      <case>
+        <target_transform>API_eyemobile_paginas_pr</target_transform>
+        <value>0</value>
+      </case>
+    </cases>
+    <default_target_transform>Table input Valida Carga RJ</default_target_transform>
+    <fieldname>qtd_registros_pr</fieldname>
+    <use_contains>N</use_contains>
+    <attributes/>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Switch / case RJ</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cases>
+      <case>
+        <target_transform>API_eyemobile_paginas_rj</target_transform>
+        <value>0</value>
+      </case>
+    </cases>
+    <default_target_transform>Table input store</default_target_transform>
+    <fieldname>qtd_registros_rj</fieldname>
+    <use_contains>N</use_contains>
+    <attributes/>
+    <GUI>
+      <xloc>1600</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Table input Valida Carga PR</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Athena_AWS_Kami</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <lookup>Select values Mês Atual</lookup>
+    <sql>SELECT 
+count(*) qtd_registros_pr
+FROM tbl_store_pedidos
+where empresa = '3MKO_PR'
+and date_trunc('month',date(data_hora_transacao)) = ?</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>944</xloc>
+      <yloc>224</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Table input Valida Carga RJ</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Athena_AWS_Kami</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <lookup>Select values Mês Atual</lookup>
+    <sql>SELECT 
+count(*) qtd_registros_rj
+FROM tbl_store_pedidos
+where empresa = '3MKO_RJ'
+and date_trunc('month',date(data_hora_transacao)) = ?</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>1360</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Table input Valida Carga SP</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Athena_AWS_Kami</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <lookup>Select values Mês Atual</lookup>
+    <sql>SELECT 
+count(*) qtd_registros
+FROM tbl_store_pedidos
+where empresa = '3MKO_SP'
+and date_trunc('month',date(data_hora_transacao)) = ?</sql>
+    <variables_active>Y</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>480</xloc>
+      <yloc>320</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Table input store</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <connection>Athena_AWS_Kami</connection>
+    <execute_each_row>N</execute_each_row>
+    <limit>0</limit>
+    <sql>SELECT 
+id_pedido cod_pedido,
+date_trunc('month',date(data_hora_transacao)) mes_ref,
+empresa,
+id_pedido,
+event_name,
+(CAST(json_extract_scalar(item, '$.total') AS double)) as total,
+(CAST(json_extract_scalar(item, '$.subtotal') AS double)) as subtotal,
+json_extract_scalar(item, '$.product_name') AS product_name,
+json_extract_scalar(item, '$.product_id') AS product_id,
+json_extract_scalar(item, '$.gtin') AS ean,
+json_extract_scalar(item, '$.sku') AS sku,
+(CAST(json_extract_scalar(item, '$.price') AS double)) as price,
+(CAST(json_extract_scalar(item, '$.discount') AS double)) as discount,
+(CAST(json_extract_scalar(item, '$.quantity') AS double)) as quantity,
+'store' as origem
+FROM tbl_store_pedidos,
+UNNEST(CAST(json_parse(transaction_items) AS array(json))) AS t (item)
+order by 2, 1</sql>
+    <variables_active>N</variables_active>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>80</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Value mapper de_para_vendedor</name>
+    <type>ValueMapper</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <field_to_use>event_name</field_to_use>
+    <fields>
+      <field>
+        <source_value>THE BLACK HAIR</source_value>
+        <target_value>Andreia de Mello Pantalena</target_value>
+      </field>
+      <field>
+        <source_value>CARLA SOUZA</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>ADRIANA RIBEIRO</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>DENYA CONCEPT</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>ERICK MIGUEL (INATIVO)</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>ESTUDIO MAIS VOCÊ</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>GALATAS COIFFEUR </source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>JENNIFER MOREIRA</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>RAFAEL SOUZA</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>SALAO LUMAS</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>SALAO UP</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO MI RODRIGUES</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO PINUP</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO PRADA</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO WILL FERRER</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>SUELEN MILLAR</source_value>
+        <target_value>ELISABETH PASTORI</target_value>
+      </field>
+      <field>
+        <source_value>ADRIANA LISBOA</source_value>
+        <target_value>CAROLINE DUARTE</target_value>
+      </field>
+      <field>
+        <source_value>AGLAIS (ESTILO CARIOCA)</source_value>
+        <target_value>CAROLINE DUARTE</target_value>
+      </field>
+      <field>
+        <source_value>ANDREIA LEMES</source_value>
+        <target_value>CAROLINE DUARTE</target_value>
+      </field>
+      <field>
+        <source_value>DANIEL PAURA</source_value>
+        <target_value>CAROLINE DUARTE</target_value>
+      </field>
+      <field>
+        <source_value>LOAN ALVES</source_value>
+        <target_value>CAROLINE DUARTE</target_value>
+      </field>
+      <field>
+        <source_value>ONDINA</source_value>
+        <target_value>COMERCIAL</target_value>
+      </field>
+      <field>
+        <source_value>MAJESTIC</source_value>
+        <target_value>Debora Curty</target_value>
+      </field>
+      <field>
+        <source_value>MARCIO MELLO BOTAFOGO</source_value>
+        <target_value>Debora Curty</target_value>
+      </field>
+      <field>
+        <source_value>MARCIO MELLO COPA</source_value>
+        <target_value>Debora Curty</target_value>
+      </field>
+      <field>
+        <source_value>ART CONCEPT SALON</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO MH</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>FELIPE FREITAS</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>LES AMIES</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>MAISON CONCEPT</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>SALÃO LUGE</source_value>
+        <target_value>Emanuelle Lobão Cascaez</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO 761</source_value>
+        <target_value>Ericka Borges Bezerra</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO COLOR QUEEN</source_value>
+        <target_value>Ericka Borges Bezerra</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO KIRO</source_value>
+        <target_value>Ericka Borges Bezerra</target_value>
+      </field>
+      <field>
+        <source_value>MONA</source_value>
+        <target_value>Ericka Borges Bezerra</target_value>
+      </field>
+      <field>
+        <source_value>BEAUTE CAMARIM</source_value>
+        <target_value>FABRICIO PIRES BANDEIRA</target_value>
+      </field>
+      <field>
+        <source_value>SANTA BELLEZZA 2</source_value>
+        <target_value>FABRICIO PIRES BANDEIRA</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO URBAN</source_value>
+        <target_value>FABRICIO PIRES BANDEIRA</target_value>
+      </field>
+      <field>
+        <source_value>VITOR KLIVER</source_value>
+        <target_value>FABRICIO PIRES BANDEIRA</target_value>
+      </field>
+      <field>
+        <source_value>INSPIRATTO</source_value>
+        <target_value>Fernando de Souza Homem</target_value>
+      </field>
+      <field>
+        <source_value>CLARITTA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>CONCEITO A</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>ALESSANDRA GOMES</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>ATIPICO</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>BIA COSTA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>DIEGO COSTTA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>ERICA VIANNA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>ERICA VIANNA JPA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>HELHIDA SOARES</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>JO COIFFEUR</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>JULIANE VALLE</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>KARINE LOUISE (EASYANDCO)</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>LILI CASTILHO</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>LOLA MONTEIRO</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>LUIZE FREIRE</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>MAURO</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>PATRICK PESSOA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO LUNA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>TATIANA ARAUJO FREGUESIA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>TATIANA ARAUJO TIJUCA (INATIVO)</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>TATIANE MACHADO</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>WERNER TIJUCA</source_value>
+        <target_value>JEFFERSON PINTO DA SILVA</target_value>
+      </field>
+      <field>
+        <source_value>ALEIXO HAIR</source_value>
+        <target_value>Aguinaldo Rodrigues dos Santos Junior</target_value>
+      </field>
+      <field>
+        <source_value>ANNA DORNELES</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>GABRIELA CORREA</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>MAISON CHIC</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>MULHER CARIOCA</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>OHEL SALON</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO SEVEN</source_value>
+        <target_value>Luan Costa Amaral ( RJ )</target_value>
+      </field>
+      <field>
+        <source_value>NR COIFFEUR</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>ADRIANA ARAUJO</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>ANA LUDOLF</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>CARVALHO STUDIO (STUDIO PRIME)</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>COR E UNHA PATIO</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO DK</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>LINCON BERRIEL</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>NALDA FASHION</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>ROSSI HAIR</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>VERONICA CARVALHO</source_value>
+        <target_value>LUCIANA MACEDO</target_value>
+      </field>
+      <field>
+        <source_value>GIUSEPPES</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>ANTHONY SALVES</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>AVT SALAO</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>BELEZA ESSENCIAL</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>BLUME - ABGAIL ALVES</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>CHICOS</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>CITRINO BARRA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>DEISE SOARES</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>DONNA DI SPA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO AZOURY</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>ESPAÇO BHE (INATIVO)</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>FERNANDA SEABRA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>GLAM COIFFEUR 2</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>HAIR LAB</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>HILDA AZEVEDO</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>KAITA CAMAZ</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>KATIA COELHO</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>LEO MATHIAS</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>LUIZ BATISTA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>M CONCEPT</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>MARIANA MIRIAN</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>MAVI HAIR</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>MR STUDIO</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>NILDE BARROS</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>PATRICIA SANTOS</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>POLICANTE</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>PONTO F</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>REGIS MELO BARRA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>REGIS MELO FREGUESIA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>RENATO DUARTE</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>SANDRA OLIVEIRA 2</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>STEVEN RANGEL</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>SUELEN BATISTA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>THIAGO COSTA</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>V GLADYR</source_value>
+        <target_value>LUIZ HENRIQUE CARDOSO</target_value>
+      </field>
+      <field>
+        <source_value>NATHY ABREU</source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>KARINA ARRASA</source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>LENA PAZ 2 </source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>LILI HAIR</source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>STUDIO D CLAU</source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>TRYO SALON</source_value>
+        <target_value>Maria José Santos Souza</target_value>
+      </field>
+      <field>
+        <source_value>LETICIA NASCIMENTO</source_value>
+        <target_value>Selma Duarte Gouveia</target_value>
+      </field>
+      <field>
+        <source_value>MARIA BONITA</source_value>
+        <target_value>Selma Duarte Gouveia</target_value>
+      </field>
+      <field>
+        <source_value>NICK WILLIANS</source_value>
+        <target_value>Selma Duarte Gouveia</target_value>
+      </field>
+      <field>
+        <source_value>PAULO BORRALHO</source_value>
+        <target_value>Selma Duarte Gouveia</target_value>
+      </field>
+      <field>
+        <source_value>THAIS ALCANTRA</source_value>
+        <target_value>Selma Duarte Gouveia</target_value>
+      </field>
+      <field>
+        <source_value>DANI E LEO</source_value>
+        <target_value>Sergio Lucas Gomes Cancela</target_value>
+      </field>
+      <field>
+        <source_value>DANI E LEO</source_value>
+        <target_value>Sergio Lucas Gomes Cancela</target_value>
+      </field>
+      <field>
+        <source_value>ALE NUNES</source_value>
+        <target_value>Silvio Araújo</target_value>
+      </field>
+      <field>
+        <source_value>JACQUES JANINE CAMPO BELO</source_value>
+        <target_value>Silvio Araújo</target_value>
+      </field>
+      <field>
+        <source_value>SAMANTHA HAIR</source_value>
+        <target_value>Silvio Araújo</target_value>
+      </field>
+      <field>
+        <source_value>VITALY</source_value>
+        <target_value>Silvio Araújo</target_value>
+      </field>
+      <field>
+        <source_value>BE4US</source_value>
+        <target_value>Teodoro Shunyte sekimoto</target_value>
+      </field>
+      <field>
+        <source_value>MASAYUKI</source_value>
+        <target_value>Teodoro Shunyte sekimoto</target_value>
+      </field>
+      <field>
+        <source_value>BRUNO BARATELLA</source_value>
+        <target_value>WALKER MEIRELLIS</target_value>
+      </field>
+      <field>
+        <source_value>MICHELLE BRAGA</source_value>
+        <target_value>WALKER MEIRELLIS</target_value>
+      </field>
+      <field>
+        <source_value>SUZY LACERDA (INATIVO)</source_value>
+        <target_value>WALKER MEIRELLIS</target_value>
+      </field>
+    </fields>
+    <non_match_default>NSA</non_match_default>
+    <target_field>vendedor</target_field>
+    <attributes/>
+    <GUI>
+      <xloc>2128</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>seq_API_eyemobile_transactions</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/seq_API_eyemobile_transactions.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform/>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>

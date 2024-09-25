@@ -1,0 +1,1623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pipeline>
+  <info>
+    <name>Seq_API_any_estoque_HP</name>
+    <name_sync_with_filename>Y</name_sync_with_filename>
+    <description/>
+    <extended_description/>
+    <pipeline_version/>
+    <pipeline_type>Normal</pipeline_type>
+    <parameters>
+    </parameters>
+    <capture_transform_performance>N</capture_transform_performance>
+    <transform_performance_capturing_delay>1000</transform_performance_capturing_delay>
+    <transform_performance_capturing_size_limit>100</transform_performance_capturing_size_limit>
+    <created_user>-</created_user>
+    <created_date>2024/04/30 09:36:45.573</created_date>
+    <modified_user>-</modified_user>
+    <modified_date>2024/04/30 09:36:45.573</modified_date>
+  </info>
+  <notepads>
+    <notepad>
+      <backgroundcolorblue>251</backgroundcolorblue>
+      <backgroundcolorgreen>232</backgroundcolorgreen>
+      <backgroundcolorred>201</backgroundcolorred>
+      <bordercolorblue>90</bordercolorblue>
+      <bordercolorgreen>58</bordercolorgreen>
+      <bordercolorred>14</bordercolorred>
+      <fontbold>N</fontbold>
+      <fontcolorblue>90</fontcolorblue>
+      <fontcolorgreen>58</fontcolorgreen>
+      <fontcolorred>14</fontcolorred>
+      <fontitalic>N</fontitalic>
+      <fontname>Segoe UI</fontname>
+      <fontsize>9</fontsize>
+      <height>26</height>
+      <xloc>160</xloc>
+      <yloc>496</yloc>
+      <note>Receb o número de paginas executados em outro pipeline</note>
+      <width>318</width>
+    </notepad>
+  </notepads>
+  <order>
+    <hop>
+      <from>Add sequence</from>
+      <to>Select values</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Concat_url_paginacao 2</from>
+      <to>Select_Parametros_API 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Dados_Header_API HP</from>
+      <to>Select values HP</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Delay Erro API 2</from>
+      <to>REST client Erro 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Delay row 2</from>
+      <to>REST client 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows 2</from>
+      <to>Abort 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Generate rows</from>
+      <to>Add sequence</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>JSON input 2</from>
+      <to>Parquet File Output Pedido 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>JavaScript 2</from>
+      <to>Select_Retorno_Tratado 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Merge join</from>
+      <to>Concat_url_paginacao 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>REST client 2</from>
+      <to>Switch / case 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>REST client Erro 2</from>
+      <to>Select_Retorno_API Erro 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values</from>
+      <to>contador_paginas</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values_Erro_API 2</from>
+      <to>Delay Erro API 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select_Parametros_API 2</from>
+      <to>call_rest_paginacao 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select_Retorno_API 2</from>
+      <to>JavaScript 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select_Retorno_API Erro 2</from>
+      <to>JavaScript 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select_Retorno_Tratado 2</from>
+      <to>JSON input 3 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case 2</from>
+      <to>Write to log -  API  2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Switch / case 2</from>
+      <to>Write to log - Falha API 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log -  API  2</from>
+      <to>Select_Retorno_API 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Write to log - Falha API 2</from>
+      <to>Select values_Erro_API 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>call_rest_paginacao 2</from>
+      <to>Delay row 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>contador_paginas</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Select values HP</from>
+      <to>Merge join</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>JSON input 3 2</from>
+      <to>JSON input 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Parquet File Output Pedido 2</from>
+      <to>Filter rows 2</to>
+      <enabled>Y</enabled>
+    </hop>
+    <hop>
+      <from>Filter rows 2</from>
+      <to>Dummy (do nothing)</to>
+      <enabled>Y</enabled>
+    </hop>
+  </order>
+  <transform>
+    <name>Abort 2</name>
+    <type>Abort</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <abort_option>ABORT_WITH_ERROR</abort_option>
+    <always_log_rows>Y</always_log_rows>
+    <message>Erro Paginação anymarket</message>
+    <row_threshold>0</row_threshold>
+    <attributes/>
+    <GUI>
+      <xloc>3216</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Add sequence</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <increment_by>100</increment_by>
+    <max_value>999999999</max_value>
+    <seqname>SEQ_</seqname>
+    <start_at>0</start_at>
+    <use_counter>Y</use_counter>
+    <use_database>N</use_database>
+    <valuename>valuename</valuename>
+    <attributes/>
+    <GUI>
+      <xloc>384</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Concat_url_paginacao 2</name>
+    <type>ConcatFields</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <ConcatFields>
+      <removeSelectedFields>N</removeSelectedFields>
+      <targetFieldLength>0</targetFieldLength>
+      <targetFieldName>uri</targetFieldName>
+    </ConcatFields>
+    <enclosure/>
+    <fields>
+      <field>
+        <currency/>
+        <decimal/>
+        <format/>
+        <group/>
+        <length>-1</length>
+        <name>url</name>
+        <nullif/>
+        <precision>-1</precision>
+        <trim_type/>
+        <type>String</type>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <format/>
+        <group/>
+        <length>-1</length>
+        <name>limit</name>
+        <nullif/>
+        <precision>-1</precision>
+        <trim_type/>
+        <type>String</type>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <format/>
+        <group/>
+        <length>-1</length>
+        <name>pagesite</name>
+        <nullif/>
+        <precision>-1</precision>
+        <trim_type/>
+        <type>String</type>
+      </field>
+      <field>
+        <currency/>
+        <decimal/>
+        <format/>
+        <group/>
+        <length>-1</length>
+        <name>pagina</name>
+        <nullif/>
+        <precision>-1</precision>
+        <trim_type/>
+        <type>String</type>
+      </field>
+    </fields>
+    <separator/>
+    <attributes/>
+    <GUI>
+      <xloc>1168</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Dados_Header_API HP</name>
+    <type>DataGrid</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <data>
+      <line>
+        <item>application/json</item>
+        <item>259083396L259061069E1786034612718C169272261271800O1.I</item>
+        <item>70900904L259061184E1788028300117C169471630011700O1.I</item>
+        <item>http://api.anymarket.com.br/v2/stocks?</item>
+        <item>limit=100</item>
+        <item>&amp;offset=</item>
+        <item>TheBest</item>
+        <item>HairPro</item>
+      </line>
+    </data>
+    <fields>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>Content-Type</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>gumgaToken</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>gumgaToken_TheBest</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>url</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>limit</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>pagesite</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>empresa</name>
+      </field>
+      <field>
+        <length>-1</length>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <name>empresa2</name>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>240</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Delay Erro API 2</name>
+    <type>Delay</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <scaletime>seconds</scaletime>
+    <timeout>20</timeout>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>816</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Delay row 2</name>
+    <type>Delay</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <scaletime>seconds</scaletime>
+    <timeout>5</timeout>
+    <attributes/>
+    <GUI>
+      <xloc>1664</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Dummy (do nothing)</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>3056</xloc>
+      <yloc>368</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Filter rows 2</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compare>
+      <condition>
+        <conditions>
+</conditions>
+        <function>=</function>
+        <leftvalue>number</leftvalue>
+        <negated>N</negated>
+        <operator>-</operator>
+        <rightvalue>totalPages</rightvalue>
+      </condition>
+    </compare>
+    <send_false_to>Dummy (do nothing)</send_false_to>
+    <send_true_to>Abort 2</send_true_to>
+    <attributes/>
+    <GUI>
+      <xloc>3056</xloc>
+      <yloc>480</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Generate rows</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <length>-1</length>
+        <name>count</name>
+        <precision>-1</precision>
+        <set_empty_string>N</set_empty_string>
+        <type>Integer</type>
+      </field>
+    </fields>
+    <interval_in_ms>5000</interval_in_ms>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+    <limit>100</limit>
+    <never_ending>N</never_ending>
+    <row_time_field>now</row_time_field>
+    <attributes/>
+    <GUI>
+      <xloc>176</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>JSON input 2</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>active</name>
+        <path>$.content.*.active</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>additionalTime</name>
+        <path>$.content.*.additionalTime</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>qtd_estoque</name>
+        <path>$.content.*.amount</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>estoque_disponivel</name>
+        <path>$.content.*.availableAmount</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>ultima_atualizacao</name>
+        <path>$.content.*.lastStockUpdate</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>custo</name>
+        <path>$.content.*.price</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>qtd_reserva</name>
+        <path>$.content.*.reservationAmount</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>id_sku</name>
+        <path>$.content.*.stockKeepingUnit.id</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>id_sku_parceiro</name>
+        <path>$.content.*.stockKeepingUnit.partnerId</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>desc_produto</name>
+        <path>$.content.*.stockKeepingUnit.title</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>stockLocal</name>
+        <path>$.content.*.stockLocal</path>
+        <type>String</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>json</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>2784</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>JSON input 3 2</name>
+    <type>JsonInput</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <include>N</include>
+    <include_field/>
+    <rownum>N</rownum>
+    <addresultfile>N</addresultfile>
+    <readurl>N</readurl>
+    <removeSourceField>N</removeSourceField>
+    <IsIgnoreEmptyFile>N</IsIgnoreEmptyFile>
+    <doNotFailIfNoFile>Y</doNotFailIfNoFile>
+    <ignoreMissingPath>Y</ignoreMissingPath>
+    <defaultPathLeafToNull>Y</defaultPathLeafToNull>
+    <rownum_field/>
+    <file>
+      <name/>
+      <filemask/>
+      <exclude_filemask/>
+      <file_required>N</file_required>
+      <include_subfolders>N</include_subfolders>
+    </file>
+    <fields>
+      <field>
+        <name>number</name>
+        <path>$.page.number</path>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+      <field>
+        <name>totalPages</name>
+        <path>$.page.totalPages</path>
+        <type>Integer</type>
+        <format/>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>none</trim_type>
+        <repeat>N</repeat>
+      </field>
+    </fields>
+    <limit>0</limit>
+    <IsInFields>Y</IsInFields>
+    <IsAFile>N</IsAFile>
+    <valueField>json</valueField>
+    <shortFileFieldName/>
+    <pathFieldName/>
+    <hiddenFieldName/>
+    <lastModificationTimeFieldName/>
+    <uriNameFieldName/>
+    <rootUriNameFieldName/>
+    <extensionFieldName/>
+    <sizeFieldName/>
+    <attributes/>
+    <GUI>
+      <xloc>2528</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>JavaScript 2</name>
+    <type>ScriptValueMod</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>
+      <jsScript>
+        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>var strjson = content ;
+
+function decodeHtmlEntities(text) {
+    return text.replace(/&amp;aacute;/g, 'a')
+		 .replace(/&amp;Aacute;/g, 'A')
+		 .replace(/&amp;eacute;/g, 'e')
+		 .replace(/&amp;Eacute;/g, 'E')
+		 .replace(/&amp;iacute;/g, 'i')
+		 .replace(/&amp;Iacute;/g, 'I')
+		 .replace(/&amp;oacute;/g, 'o')
+		 .replace(/&amp;Oacute;/g, 'O')
+		 .replace(/&amp;uacute;/g, 'u')
+		 .replace(/&amp;Uacute;/g, 'U')
+               .replace(/&amp;agrave;/g, 'a')
+		 .replace(/&amp;Agrave;/g, 'A')
+		 .replace(/&amp;egrave;/g, 'e')
+		 .replace(/&amp;Egrave;/g, 'E')
+		 .replace(/&amp;igrave;/g, 'i')
+		 .replace(/&amp;Igrave;/g, 'I')
+		 .replace(/&amp;ograve;/g, 'o')
+		 .replace(/&amp;Ograve;/g, 'O')
+		 .replace(/&amp;ugrave;/g, 'u')
+		 .replace(/&amp;Ugrave;/g, 'U')
+               .replace(/&amp;acirc;/g, 'a')
+		 .replace(/&amp;Acirc;/g, 'A')
+		 .replace(/&amp;ecirc;/g, 'e')
+		 .replace(/&amp;Ecirc;/g, 'E')
+		 .replace(/&amp;icirc;/g, 'i')
+		 .replace(/&amp;Icirc;/g, 'I')
+		 .replace(/&amp;ocirc;/g, 'o')
+		 .replace(/&amp;Ocirc;/g, 'O')
+		 .replace(/&amp;ucirc;/g, 'u')
+		 .replace(/&amp;Ucirc;/g, 'U')
+               .replace(/&amp;atilde;/g, 'a')
+		 .replace(/&amp;Atilde;/g, 'A')
+		 .replace(/&amp;etilde;/g, 'e')
+		 .replace(/&amp;Etilde;/g, 'E')
+		 .replace(/&amp;itilde;/g, 'i')
+		 .replace(/&amp;Itilde;/g, 'I')
+		 .replace(/&amp;otilde;/g, 'o')
+		 .replace(/&amp;Otilde;/g, 'O')
+		 .replace(/&amp;utilde;/g, 'u')
+		 .replace(/&amp;Utilde;/g, 'U')
+               .replace(/&amp;auml;/g, 'a')
+		 .replace(/&amp;Auml;/g, 'A')
+		 .replace(/&amp;euml;/g, 'e')
+		 .replace(/&amp;Euml;/g, 'E')
+		 .replace(/&amp;iuml;/g, 'i')
+		 .replace(/&amp;Iuml;/g, 'I')
+		 .replace(/&amp;ouml;/g, 'o')
+		 .replace(/&amp;Ouml;/g, 'O')
+		 .replace(/&amp;uuml;/g, 'u')
+		 .replace(/&amp;Uuml;/g, 'U')
+               .replace(/&amp;ccedil;/g, 'c')
+               .replace(/&amp;Ccedil;/g, 'C')
+               .replace(/&amp;lt;br&amp;gt;/g, '&lt;br>')
+               .replace(/&amp;amp;/g, '&amp;')
+               .replace(/&amp;lt;/g, '&lt;')
+               .replace(/&amp;gt;/g, '>')
+               .replace(/&amp;quot;/g, '"')
+               ;
+}
+if (strjson != null) {
+strjson = decodeHtmlEntities(strjson);
+strjson = strjson.replace(/data-sheets-value=\\"{.*?}\\"/g, '');
+strjson = strjson.replace(/data-sheets-userformat=\\".*?\\"/g, '');
+content = strjson ;
+}
+</jsScript_script>
+      </jsScript>
+    </jsScripts>
+    <fields>    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2192</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Merge join</name>
+    <type>MergeJoin</type>
+    <description/>
+    <distribute>N</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <join_type>FULL OUTER</join_type>
+    <keys_1>
+</keys_1>
+    <keys_2>
+</keys_2>
+    <transform1>Select values HP</transform1>
+    <transform2>contador_paginas</transform2>
+    <attributes/>
+    <GUI>
+      <xloc>880</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Parquet File Output Pedido 2</name>
+    <type>ParquetFileOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <compression_codec>UNCOMPRESSED</compression_codec>
+    <data_page_size>8192</data_page_size>
+    <dictionary_page_size>1048576</dictionary_page_size>
+    <fields>
+      <field>
+        <source_field>active</source_field>
+        <target_field>active</target_field>
+      </field>
+      <field>
+        <source_field>additionalTime</source_field>
+        <target_field>additionalTime</target_field>
+      </field>
+      <field>
+        <source_field>qtd_estoque</source_field>
+        <target_field>qtd_estoque</target_field>
+      </field>
+      <field>
+        <source_field>estoque_disponivel</source_field>
+        <target_field>estoque_disponivel</target_field>
+      </field>
+      <field>
+        <source_field>ultima_atualizacao</source_field>
+        <target_field>ultima_atualizacao</target_field>
+      </field>
+      <field>
+        <source_field>custo</source_field>
+        <target_field>custo</target_field>
+      </field>
+      <field>
+        <source_field>qtd_reserva</source_field>
+        <target_field>qtd_reserva</target_field>
+      </field>
+      <field>
+        <source_field>id_sku</source_field>
+        <target_field>id_sku</target_field>
+      </field>
+      <field>
+        <source_field>id_sku_parceiro</source_field>
+        <target_field>id_sku_parceiro</target_field>
+      </field>
+      <field>
+        <source_field>desc_produto</source_field>
+        <target_field>desc_produto</target_field>
+      </field>
+      <field>
+        <source_field>stockLocal</source_field>
+        <target_field>stockLocal</target_field>
+      </field>
+      <field>
+        <source_field>empresa2</source_field>
+        <target_field>empresa</target_field>
+      </field>
+    </fields>
+    <filename_base>s3://databeautykamico/bronze/Anymarket/parket/Estoque/Estoque_anymarket_HairPro</filename_base>
+    <filename_create_parent_folders>Y</filename_create_parent_folders>
+    <filename_datetime_format>yyyyMMdd-HHmmss</filename_datetime_format>
+    <filename_ext>parquet</filename_ext>
+    <filename_include_copy>Y</filename_include_copy>
+    <filename_include_date>N</filename_include_date>
+    <filename_include_datetime>N</filename_include_datetime>
+    <filename_include_split>Y</filename_include_split>
+    <filename_include_time>N</filename_include_time>
+    <filename_split_size>1000000</filename_split_size>
+    <row_group_size>67108864</row_group_size>
+    <version>2.0</version>
+    <attributes/>
+    <GUI>
+      <xloc>3056</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>REST client 2</name>
+    <type>Rest</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>GET</method>
+    <url/>
+    <urlInField>Y</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField>url_paginada</urlField>
+    <bodyField/>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <ignoreSsl>N</ignoreSsl>
+    <headers>
+      <header>
+        <field>Content-Type</field>
+        <name>Content-Type</name>
+      </header>
+      <header>
+        <field>gumgaToken</field>
+        <name>gumgaToken</name>
+      </header>
+    </headers>
+    <parameters>
+      </parameters>
+    <matrixParameters>
+      </matrixParameters>
+    <result>
+      <name>content</name>
+      <code>response</code>
+      <response_time/>
+      <response_header/>
+    </result>
+    <attributes/>
+    <GUI>
+      <xloc>1760</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>REST client Erro 2</name>
+    <type>Rest</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <applicationType>TEXT PLAIN</applicationType>
+    <method>GET</method>
+    <url/>
+    <urlInField>Y</urlInField>
+    <dynamicMethod>N</dynamicMethod>
+    <methodFieldName/>
+    <urlField>url_paginada</urlField>
+    <bodyField/>
+    <httpLogin/>
+    <httpPassword>Encrypted </httpPassword>
+    <proxyHost/>
+    <proxyPort/>
+    <preemptive>N</preemptive>
+    <trustStoreFile/>
+    <trustStorePassword>Encrypted </trustStorePassword>
+    <ignoreSsl>N</ignoreSsl>
+    <headers>
+      <header>
+        <field>Content-Type</field>
+        <name>Content-Type</name>
+      </header>
+      <header>
+        <field>gumgaToken</field>
+        <name>gumgaToken</name>
+      </header>
+    </headers>
+    <parameters>
+      </parameters>
+    <matrixParameters>
+      </matrixParameters>
+    <result>
+      <name>content</name>
+      <code>response</code>
+      <response_time/>
+      <response_header/>
+    </result>
+    <attributes/>
+    <GUI>
+      <xloc>2016</xloc>
+      <yloc>816</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <remove>
+        <name>count</name>
+      </remove>
+      <meta>
+        <name>valuename</name>
+        <rename>pagina</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>560</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values HP</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>Content-Type</name>
+        <rename>Content-Type</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>gumgaToken</name>
+        <rename>gumgaToken</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>gumgaToken_TheBest</name>
+        <rename>gumgaToken_TheBest</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>empresa</name>
+        <rename>empresa</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>empresa2</name>
+        <rename>empresa2</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>704</xloc>
+      <yloc>256</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select values_Erro_API 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <field>
+        <name>Content-Type</name>
+      </field>
+      <field>
+        <name>gumgaToken</name>
+      </field>
+      <field>
+        <name>url_paginada</name>
+      </field>
+      <select_unspecified>N</select_unspecified>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>688</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select_Parametros_API 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>uri</name>
+        <rename>url_paginada</rename>
+        <type>String</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>Content-Type</name>
+        <rename>Content-Type</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>gumgaToken</name>
+        <rename>gumgaToken</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+      <meta>
+        <name>empresa2</name>
+        <rename>empresa2</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1344</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select_Retorno_API 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>response</name>
+        <rename>status_response</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2192</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select_Retorno_API Erro 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>response</name>
+        <rename>status_response</rename>
+        <type>Integer</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2192</xloc>
+      <yloc>816</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Select_Retorno_Tratado 2</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <fields>
+      <select_unspecified>N</select_unspecified>
+      <meta>
+        <name>content</name>
+        <rename>json</rename>
+        <type>None</type>
+        <length>-2</length>
+        <precision>-2</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2320</xloc>
+      <yloc>608</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Switch / case 2</name>
+    <type>SwitchCase</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <cases>
+      <case>
+        <target_transform>Write to log - Falha API 2</target_transform>
+        <value>429</value>
+      </case>
+    </cases>
+    <default_target_transform>Write to log -  API  2</default_target_transform>
+    <fieldname>response</fieldname>
+    <use_contains>N</use_contains>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Write to log -  API  2</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_basic</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>Chamada API</logmessage>
+    <fields>
+      <field>
+        <name>response</name>
+      </field>
+      <field>
+        <name>pagina</name>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>2032</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>Write to log - Falha API 2</name>
+    <type>WriteToLog</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <loglevel>log_level_detailed</loglevel>
+    <displayHeader>Y</displayHeader>
+    <limitRows>N</limitRows>
+    <limitRowsNumber>0</limitRowsNumber>
+    <logmessage>Falha na chamada API</logmessage>
+    <fields>
+      <field>
+        <name>response</name>
+      </field>
+      <field>
+        <name>pagina</name>
+      </field>
+    </fields>
+    <attributes/>
+    <GUI>
+      <xloc>1872</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>call_rest_paginacao 2</name>
+    <type>PipelineExecutor</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <run_configuration>local</run_configuration>
+    <filename>${PROJECT_HOME}/call_rest_anymarket.hpl</filename>
+    <filenameInField>N</filenameInField>
+    <filenameField/>
+    <group_size>1</group_size>
+    <group_field/>
+    <group_time/>
+    <parameters>
+      <variable_mapping>
+        <variable>url_paginada</variable>
+        <field>url_paginada</field>
+        <input/>
+      </variable_mapping>
+      <variable_mapping>
+        <variable>Content-Type</variable>
+        <field>Content-Type</field>
+        <input/>
+      </variable_mapping>
+      <variable_mapping>
+        <variable>gumgaToken</variable>
+        <field>gumgaToken</field>
+        <input/>
+      </variable_mapping>
+      <inherit_all_vars>Y</inherit_all_vars>
+    </parameters>
+    <execution_result_target_transform/>
+    <execution_time_field>ExecutionTime</execution_time_field>
+    <execution_result_field>ExecutionResult</execution_result_field>
+    <execution_errors_field>ExecutionNrErrors</execution_errors_field>
+    <execution_lines_read_field>ExecutionLinesRead</execution_lines_read_field>
+    <execution_lines_written_field>ExecutionLinesWritten</execution_lines_written_field>
+    <execution_lines_input_field>ExecutionLinesInput</execution_lines_input_field>
+    <execution_lines_output_field>ExecutionLinesOutput</execution_lines_output_field>
+    <execution_lines_rejected_field>ExecutionLinesRejected</execution_lines_rejected_field>
+    <execution_lines_updated_field>ExecutionLinesUpdated</execution_lines_updated_field>
+    <execution_lines_deleted_field>ExecutionLinesDeleted</execution_lines_deleted_field>
+    <execution_files_retrieved_field>ExecutionFilesRetrieved</execution_files_retrieved_field>
+    <execution_exit_status_field>ExecutionExitStatus</execution_exit_status_field>
+    <execution_log_text_field>ExecutionLogText</execution_log_text_field>
+    <execution_log_channelid_field>ExecutionLogChannelId</execution_log_channelid_field>
+    <result_rows_target_transform/>
+    <result_rows_field>
+      <name>content</name>
+      <type>String</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_rows_field>
+      <name>response</name>
+      <type>Integer</type>
+      <length>-1</length>
+      <precision>-1</precision>
+    </result_rows_field>
+    <result_files_target_transform/>
+    <result_files_file_name_field>FileName</result_files_file_name_field>
+    <executors_output_transform>Delay row 2</executors_output_transform>
+    <attributes/>
+    <GUI>
+      <xloc>1520</xloc>
+      <yloc>448</yloc>
+    </GUI>
+  </transform>
+  <transform>
+    <name>contador_paginas</name>
+    <type>RowsToResult</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+    <partitioning>
+      <method>none</method>
+      <schema_name/>
+    </partitioning>
+    <attributes/>
+    <GUI>
+      <xloc>720</xloc>
+      <yloc>576</yloc>
+    </GUI>
+  </transform>
+  <transform_error_handling>
+  </transform_error_handling>
+  <attributes/>
+</pipeline>
